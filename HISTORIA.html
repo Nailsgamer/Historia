@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Crueldad de la Humanidad | Lectura</title>
+    
+    <!-- Metaetiquetas OpenGraph para WhatsApp -->
+    <meta property="og:title" content="La Crueldad de la Humanidad | Historia Completa">
+    <meta property="og:description" content="Lee la historia completa de esta épica saga directamente en tu navegador.">
+    <meta property="og:url" content="https://nailsgamer.github.io/Historia/historia.html">
+    <meta property="og:type" content="website">
+    
+    <style>
+        :root {
+            --primary: #8B0000;
+            --secondary: #333;
+            --accent: #FF4500;
+            --light: #F5F5F5;
+            --dark: #121212;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--dark);
+            color: white;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #5E0000);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            background-color: var(--secondary);
+            padding: 0.8rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: var(--accent);
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            min-height: calc(100vh - 200px);
+            flex-wrap: wrap;
+        }
+        
+        .navigation-panel {
+            width: 300px;
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 1rem;
+            border-radius: 8px 0 0 8px;
+            overflow-y: auto;
+            height: 80vh;
+            position: sticky;
+            top: 140px;
+        }
+        
+        .season {
+            margin-bottom: 1.5rem;
+        }
+        
+        .season-title {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .season-title:hover {
+            background-color: #9B0000;
+        }
+        
+        .episodes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .season.active .episodes-list {
+            max-height: 500px;
+        }
+        
+        .episode-item {
+            margin-bottom: 0.3rem;
+        }
+        
+        .episode-btn {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            background-color: rgba(60, 60, 60, 0.7);
+            color: white;
+            border: none;
+            border-left: 3px solid transparent;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 3px;
+        }
+        
+        .episode-btn:hover, .episode-btn.active {
+            background-color: rgba(80, 80, 80, 0.9);
+            border-left-color: var(--accent);
+        }
+        
+        .pdf-viewer-container {
+            flex: 1;
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 0 8px 8px 0;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+        }
+        
+        .pdf-viewer {
+            flex: 1;
+            border: none;
+            background: white;
+            border-radius: 5px;
+            min-height: 500px;
+            width: 100%;
+        }
+        
+        .pdf-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .pdf-controls button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pdf-controls button:hover {
+            background-color: var(--accent);
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: #AAA;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .navigation-panel {
+                width: auto;
+                position: static;
+                height: auto;
+                max-height: 300px;
+                border-radius: 8px 8px 0 0;
+            }
+            
+            .pdf-viewer-container {
+                border-radius: 0 0 8px 8px;
+            }
+        }
+
+        .mobile-warning {
+            display: none;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning {
+                display: block;
+            }
+        }
+        
+        .no-pdf-selected {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .pdf-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LA CRUELDAD DE LA HUMANIDAD</h1>
+        <p>Lectura de la historia completa</p>
+    </header>
+    
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="personajes.html">Personajes</a>
+        <a href="habilidades.html">Habilidades</a>
+        <a href="historia.html" class="active">Historia</a>
+    </nav>
+
+    <div class="mobile-warning">
+        En dispositivos móviles, los archivos PDF se descargarán automáticamente.
+    </div>
+    
+    <div class="container">
+        <!-- Panel de navegación -->
+        <div class="navigation-panel">
+            <!-- Temporada 1 -->
+            <div class="season active">
+                <div class="season-title">
+                    <span>Temporada 1: Orígenes</span>
+                    <span>▼</span>
+                </div>
+                <ul class="episodes-list">
+                    <li class="episode-item">
+                        <button class="episode-btn" data-pdf="EP11.pdf">Episodio 11: Las bestias entran en acción</button>
+                    </li>
+                    <li class="episode-item">
+                        <button class="episode-btn" data-pdf="EP12.pdf">Episodio 12: Los ministros contra las bestias</button>
+                    </li>
+                    <li class="episode-item">
+                        <button class="episode-btn" data-pdf="EP13.pdf">Episodio 13: La retirada, salven a la Bestia Demoniaca</button>
+                    </li>
+                    <li class="episode-item">
+                        <button class="episode-btn" data-pdf="EP14.pdf">Episodio 14: El lazo más fuerte, el vínculo del amor</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Visor de PDF -->
+        <div class="pdf-viewer-container">
+            <div class="pdf-controls">
+                <button id="download-pdf">Descargar PDF</button>
+            </div>
+            <div id="pdf-viewer" class="pdf-viewer no-pdf-selected">
+                Selecciona un episodio para verlo aquí
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 La Crueldad de la Humanidad - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejo de temporadas desplegables
+            document.querySelectorAll('.season-title').forEach(title => {
+                title.addEventListener('click', function() {
+                    const season = this.parentElement;
+                    season.classList.toggle('active');
+                    this.querySelector('span:last-child').textContent = 
+                        season.classList.contains('active') ? '▼' : '►';
+                });
+            });
+
+            // Manejo de botones de episodios
+            document.querySelectorAll('.episode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Actualizar botón activo
+                    document.querySelectorAll('.episode-btn').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Obtener ruta del PDF
+                    const pdfPath = this.getAttribute('data-pdf');
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                    
+                    if (isMobile) {
+                        // Para móviles: descargar directamente
+                        window.open(pdfPath, '_blank');
+                    } else {
+                        // Para PC: mostrar en el visor
+                        const viewer = document.getElementById('pdf-viewer');
+                        viewer.classList.remove('no-pdf-selected');
+                        viewer.innerHTML = `
+                            <iframe 
+                                src="${pdfPath}#toolbar=0&navpanes=0" 
+                                class="pdf-iframe">
+                            </iframe>`;
+                    }
+                    
+                    // Actualizar botón de descarga
+                    document.getElementById('download-pdf').onclick = function() {
+                        window.open(pdfPath, '_blank');
+                    };
+                });
+            });
+
+            // Activar el primer episodio por defecto (opcional)
+            const firstEpisode = document.querySelector('.episode-btn');
+            if (firstEpisode) {
+                firstEpisode.click();
+            }
+        });
+    </script>
+</body>
+</html>
